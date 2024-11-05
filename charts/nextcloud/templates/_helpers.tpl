@@ -318,24 +318,96 @@ Swift as primary object store env vars
 {{- if .Values.nextcloud.objectStore.swift.enabled }}
 - name: OBJECTSTORE_SWIFT_AUTOCREATE
   value: {{ .Values.nextcloud.objectStore.swift.autoCreate | quote }}
+{{- if and .Values.nextcloud.objectStore.swift.existingSecret .Values.nextcloud.objectStore.swift.secretKeys.user.name }}
+- name: OBJECTSTORE_SWIFT_USER_NAME
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.nextcloud.objectStore.swift.existingSecret }}
+      key: {{ .Values.nextcloud.objectStore.swift.secretKeys.userName }}
+{{- else }}
 - name: OBJECTSTORE_SWIFT_USER_NAME
   value: {{ .Values.nextcloud.objectStore.swift.user.name | quote }}
-- name: OBJECTSTORE_SWIFT_USER_PASSWORD
-  value: {{ .Values.nextcloud.objectStore.swift.user.password | quote }}
+{{- end }}
+
+{{- if and .Values.nextcloud.objectStore.swift.existingSecret FIXME }}
+- name:
+  valueFrom:
+    secretKeyRef:
+      name:
+      key:
 - name: OBJECTSTORE_SWIFT_USER_DOMAIN
   value: {{ .Values.nextcloud.objectStore.swift.user.domain | quote }}
+{{- end }}
+
+
+{{- if and .Values.nextcloud.objectStore.swift.existingSecret FIXME }}
+- name:
+  valueFrom:
+    secretKeyRef:
+      name:
+      key:
+{{- else }}
 - name: OBJECTSTORE_SWIFT_PROJECT_NAME
   value: {{ .Values.nextcloud.objectStore.swift.project.name | quote }}
+{{- end }}
+
+
+{{- if and .Values.nextcloud.objectStore.swift.existingSecret FIXME }}
+- name:
+  valueFrom:
+    secretKeyRef:
+      name:
+      key:
+{{- else }}
 - name: OBJECTSTORE_SWIFT_PROJECT_DOMAIN
   value: {{ .Values.nextcloud.objectStore.swift.project.domain | quote }}
+{{- end }}
+
+{{- if and .Values.nextcloud.objectStore.swift.existingSecret FIXME }}
+- name:
+  valueFrom:
+    secretKeyRef:
+      name:
+      key:
+{{- else }}
 - name: OBJECTSTORE_SWIFT_SERVICE_NAME
   value: {{ .Values.nextcloud.objectStore.swift.service | quote }}
+{{- end }}
+
+
+{{- if and .Values.nextcloud.objectStore.swift.existingSecret FIXME }}
+- name:
+  valueFrom:
+    secretKeyRef:
+      name:
+      key:
+{{- else }}
 - name: OBJECTSTORE_SWIFT_REGION
   value: {{ .Values.nextcloud.objectStore.swift.region | quote }}
-- name: OBJECTSTORE_SWIFT_URL
-  value: {{ .Values.nextcloud.objectStore.swift.url | quote }}
+{{- end }}
+
+
+{{- if and .Values.nextcloud.objectStore.swift.existingSecret FIXME }}
+- name:
+  valueFrom:
+    secretKeyRef:
+      name:
+      key:
+{{- else }}
 - name: OBJECTSTORE_SWIFT_CONTAINER_NAME
   value: {{ .Values.nextcloud.objectStore.swift.container | quote }}
+{{- end }}
+
+{{- if and .Values.nextcloud.objectStore.swift.existingSecret FIXME }}
+- name:
+  valueFrom:
+    secretKeyRef:
+      name:
+      key:
+{{- else }}
+- name: OBJECTSTORE_SWIFT_URL
+  value: {{ .Values.nextcloud.objectStore.swift.url | quote }}
+{{- end }}
 {{- end }}{{/* end if nextcloud.objectStore.s3.enabled */}}
 {{- if .Values.nextcloud.extraEnv }}
 {{ toYaml .Values.nextcloud.extraEnv }}
